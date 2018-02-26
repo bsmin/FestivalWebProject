@@ -1,0 +1,9 @@
+body { text-align: center; }
+table { margin: 0 auto; }
+.click { cursor: pointer; }
+.left { text-align: left; }
+.right { text-align: right; }
+.center { text-align: center; }
+a:hover { text-decoration: underline; cursor: pointer;  }
+.page { background-color: gray; color: white; font-weight: bold; }
+.category { color: red; font-weight: bold;  }

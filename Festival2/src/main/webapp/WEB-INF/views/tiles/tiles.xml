@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+		"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="layout" template="/WEB-INF/views/tiles/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/include/header.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/views/include/footer.jsp"/>
+	</definition>
+	<definition name="errors/" template="/WEB-INF/views/tiles/error.jsp">
+		<put-attribute name="main" value="/WEB-INF/views/error/{1}.jsp"/>
+	</definition>
+	
+<!-- 	응답하는 페이지마다 달라지는 main 에 해당하는 페이지 지정 -->
+<!-- 	customer/list.jsp .. : 고객관리 -->
+<!-- 	notice/new.jsp .. : 공지사항 -->
+	<definition name="*/*" extends="layout">
+		<put-attribute name="main" value="/WEB-INF/views/{1}/{2}.jsp"/>
+	</definition>
+	
+	<definition name="*" extends="layout">
+		<put-attribute name="main" value="/WEB-INF/views/{1}.jsp"/>
+	</definition>
+<!-- 	<definition name="*"  template="/WEB-INF/views/tiles/test.jsp"> -->
+<!-- 		<put-attribute name="main" value="/WEB-INF/views/{1}.jsp"/> -->
+<!-- 	</definition> -->
+	
+</tiles-definitions>		
+		
