@@ -29,4 +29,5 @@
 		<property name="defaultEncoding" value="utf-8"/>
 	</bean>
 
+	<bean class="common.service.CommonServiceImpl"/>
 </beans>

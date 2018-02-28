@@ -32,7 +32,6 @@ $(document).ready(function() {
 	});
 	
 });
-
 function go_page( page ){
 	$("#curPage").val( page );
 	$("#list").submit();

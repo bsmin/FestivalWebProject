@@ -7,6 +7,33 @@
 	select * from board
 </select>
 
+<delete id="comment_delete">
+	delete from board_comment
+	where id = #{id}
+</delete>
+
+
+<update id="comment_update">
+	update board_comment
+	set content = #{content}
+	where id = #{id}
+</update>
+
+
+<select id="comment_list" resultType="comment.dto.CommentDTO">
+	select b.*, to_char(writedate, 'yyyy-mm-dd hh24:mi:ss') str_writedate,
+		(select name from member m where m.id=userid) name
+	from board_comment b 
+	where pid = #{pid}
+	order by id desc
+</select>
+
+<insert id="comment_insert">
+	insert into board_comment(pid,userid,content)
+	values(#{pid},#{userid},#{content})
+</insert>
+
+
 
 
 </mapper>

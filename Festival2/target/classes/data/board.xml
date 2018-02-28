@@ -5,4 +5,13 @@
 
 <bean id="boardService" class="board.service.BoardServiceImpl"/>	
 <bean id="boardDAO" class="board.dao.BoardDAOImpl" /> 
+<bean class="comment.dao.CommentDAOImpl">
+	<qualifier value="board"/>
+	</bean>
+<!-- <bean class="notice.service.CommentServiceImpl"> -->
+<!-- 	<qualifier value="board"/> -->
+<!-- </bean>	 -->
+	<bean id="board" class="comment.service.CommentServiceImpl" >
+		<qualifier value="board"/>
+	</bean>
 </beans>

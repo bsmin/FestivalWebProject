@@ -13,9 +13,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import common.dto.PageDTO;
 import festival.dto.FestivalDTO;
 import festival.dto.FestivalDetailDTO;
 import festival.dto.FestivalPageDTO;
@@ -56,8 +53,6 @@ public class FestivalDAOImpl implements FestivalDAO {
 	private String startMonth;
 	private String startFirstDay;
 	private String contentId;
-	@Autowired
-	private PageDTO page;
 
 	public FestivalDAOImpl() {
 	}
@@ -123,11 +118,11 @@ public class FestivalDAOImpl implements FestivalDAO {
 				festivalUrl += "&eventStartDate=" + seasonStartDate + "&eventEndDate=" + seasonEndDate + "&_type=json";
 				break;
 			case 4:
-				startYear = dateInfo.getDateYear(); // ÇöÀç 2018
-				endYear = String.valueOf(Integer.valueOf(dateInfo.getDateYear()) + 1);// ÇöÀç
+				startYear = dateInfo.getDateYear(); // ï¿½ï¿½ï¿½ï¿½ 2018
+				endYear = String.valueOf(Integer.valueOf(dateInfo.getDateYear()) + 1);// ï¿½ï¿½ï¿½ï¿½
 																						// 2018+1=
 																						// 2019
-				month = dateInfo.getDateMonth(); // ÇöÀç 2
+				month = dateInfo.getDateMonth(); // ï¿½ï¿½ï¿½ï¿½ 2
 				startMonth = "12";
 				startFirstDay = "01";
 				endMonth = "02";
@@ -149,7 +144,6 @@ public class FestivalDAOImpl implements FestivalDAO {
 		}
 
 		obj = JSONObject.fromObject(httpConnection(festivalUrl)).getJSONObject("response").getJSONObject("body");
-		info = obj.getJSONObject("items").getJSONArray("item");
 		rownum = Integer.parseInt(obj.get("numOfRows").toString());
 		totalPage = (int) Math.ceil(Double.parseDouble(obj.getString("totalCount").toString()) / offset);
 
@@ -159,55 +153,86 @@ public class FestivalDAOImpl implements FestivalDAO {
 			page.setCurPage(pageNum);
 			page.setTotalList(Integer.valueOf(obj.getString("totalCount").toString()));
 		}
-
-		for (int i = 0; i < info.size(); i++) {
-			/* Å¸ÀÌÆ² °Ë»ç */
-			if (title != "" && title != null) {
-				if (info.getJSONObject(i).getString("title").toString().contains(title)) {
+		
+		if (obj.getJSONObject("items").get("item") instanceof JSONArray) {
+			info = obj.getJSONObject("items").getJSONArray("item");
+			for (int i = 0; i < info.size(); i++) {
+				/* Å¸ï¿½ï¿½Æ² ï¿½Ë»ï¿½ */
+				if (title != "" && title != null) {
+					if (info.getJSONObject(i).getString("title").toString().contains(title)) {
+						dto1 = new FestivalDTO(info.getJSONObject(i).getString("contentid").toString(),
+								info.getJSONObject(i).getString("eventstartdate").toString(),
+								info.getJSONObject(i).getString("eventenddate").toString(),
+								info.getJSONObject(i).getString("title").toString());
+						dto1.setImage("./img/default.jpg");
+						dto1.setReadcount(info.getJSONObject(i).getString("readcount").toString());
+						dto1.setTerm(dateInfo.getEventTerm(info.getJSONObject(i).getString("eventstartdate").toString(),
+								info.getJSONObject(i).getString("eventenddate").toString()));
+						if (info.getJSONObject(i).has("firstimage2")) {
+							dto1.setImage(info.getJSONObject(i).getString("firstimage2").toString());
+						}
+						if (info.getJSONObject(i).has("addr1")) {
+							dto1.setAddr1(info.getJSONObject(i).getString("addr1").toString());
+							dto1.setMapx(info.getJSONObject(i).getString("mapx").toString());
+							dto1.setMapy(info.getJSONObject(i).getString("mapy").toString());
+						}
+					} else {
+						System.out.println("ï¿½Ë»ï¿½ï¿½Ï½ï¿½ ï¿½Ü¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ï¿½ï¿½ï¿½ï¿½");
+					}
+				} else {
 					dto1 = new FestivalDTO(info.getJSONObject(i).getString("contentid").toString(),
 							info.getJSONObject(i).getString("eventstartdate").toString(),
 							info.getJSONObject(i).getString("eventenddate").toString(),
 							info.getJSONObject(i).getString("title").toString());
 					dto1.setImage("./img/default.jpg");
-					dto1.setReadcount(info.getJSONObject(i).getString("readcount").toString());
 					dto1.setTerm(dateInfo.getEventTerm(info.getJSONObject(i).getString("eventstartdate").toString(),
 							info.getJSONObject(i).getString("eventenddate").toString()));
+					if (info.getJSONObject(i).has("readcount")) {
+						dto1.setReadcount(info.getJSONObject(i).getString("readcount").toString());
+					}
 					if (info.getJSONObject(i).has("firstimage2")) {
 						dto1.setImage(info.getJSONObject(i).getString("firstimage2").toString());
+					} else if (dto1.getImage() == null) {
+						try {
+							dto1.setImage(ImgInfo(dto1.getcontentId()));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 					}
 					if (info.getJSONObject(i).has("addr1")) {
 						dto1.setAddr1(info.getJSONObject(i).getString("addr1").toString());
 						dto1.setMapx(info.getJSONObject(i).getString("mapx").toString());
 						dto1.setMapy(info.getJSONObject(i).getString("mapy").toString());
 					}
-				} else {
-					System.out.println("°Ë»öÇÏ½Å ´Ü¾îÀÇ Á¤º¸°¡ ¾ø½À´Ï´Ù. ¿À·ù");
 				}
-			} else {
-				dto1 = new FestivalDTO(info.getJSONObject(i).getString("contentid").toString(),
-						info.getJSONObject(i).getString("eventstartdate").toString(),
-						info.getJSONObject(i).getString("eventenddate").toString(),
-						info.getJSONObject(i).getString("title").toString());
-				dto1.setImage("./img/default.jpg");
-				dto1.setReadcount(info.getJSONObject(i).getString("readcount").toString());
-				dto1.setTerm(dateInfo.getEventTerm(info.getJSONObject(i).getString("eventstartdate").toString(),
-						info.getJSONObject(i).getString("eventenddate").toString()));
-				if (info.getJSONObject(i).has("firstimage2")) {
-					dto1.setImage(info.getJSONObject(i).getString("firstimage2").toString());
-				} else if (dto1.getImage() == null) {
-					try {
-						dto1.setImage(ImgInfo(dto1.getcontentId()));
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-				if (info.getJSONObject(i).has("addr1")) {
-					dto1.setAddr1(info.getJSONObject(i).getString("addr1").toString());
-					dto1.setMapx(info.getJSONObject(i).getString("mapx").toString());
-					dto1.setMapy(info.getJSONObject(i).getString("mapy").toString());
+
+				listItem.add(dto1);
+			}
+		} else if(obj.getJSONObject("items").get("item") instanceof JSONObject) {
+			dto1 = new FestivalDTO(obj.getJSONObject("items").getJSONObject("item").getString("contentid").toString(),
+					obj.getJSONObject("items").getJSONObject("item").getString("eventstartdate").toString(),
+					obj.getJSONObject("items").getJSONObject("item").getString("eventenddate").toString(),
+					obj.getJSONObject("items").getJSONObject("item").getString("title").toString());
+			dto1.setImage("./img/default.jpg");
+			dto1.setTerm(dateInfo.getEventTerm(obj.getJSONObject("items").getJSONObject("item").getString("eventstartdate").toString(),
+					obj.getJSONObject("items").getJSONObject("item").getString("eventenddate").toString()));
+			if (obj.getJSONObject("items").getJSONObject("item").has("readcount")) {
+				dto1.setReadcount(obj.getJSONObject("items").getJSONObject("item").getString("readcount").toString());
+			}
+			if (obj.getJSONObject("items").getJSONObject("item").has("firstimage2")) {
+				dto1.setImage(obj.getJSONObject("items").getJSONObject("item").getString("firstimage2").toString());
+			} else if (dto1.getImage() == null) {
+				try {
+					dto1.setImage(ImgInfo(dto1.getcontentId()));
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
-
+			if (obj.getJSONObject("items").getJSONObject("item").has("addr1")) {
+				dto1.setAddr1(obj.getJSONObject("items").getJSONObject("item").getString("addr1").toString());
+				dto1.setMapx(obj.getJSONObject("items").getJSONObject("item").getString("mapx").toString());
+				dto1.setMapy(obj.getJSONObject("items").getJSONObject("item").getString("mapy").toString());
+			}
 			listItem.add(dto1);
 		}
 		page.setListItem(listItem);
@@ -219,7 +244,7 @@ public class FestivalDAOImpl implements FestivalDAO {
 		try {
 			urlCon = new URL(url);
 			httpCon = (HttpURLConnection) urlCon.openConnection();
-			// InputStreamÀ¸·Î ¼­¹ö·Î ºÎÅÍ ÀÀ´äÀ» ¹Þ°Ú´Ù´Â ¿É¼Ç.
+			// InputStreamï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ°Ú´Ù´ï¿½ ï¿½É¼ï¿½.
 			httpCon.setDoInput(true);
 			try {
 				is = httpCon.getInputStream();
@@ -290,8 +315,10 @@ public class FestivalDAOImpl implements FestivalDAO {
 	@Override
 	public HashMap<String, Object> getFestivalDetailInfo(String contentId, int offset, int pageNum) {
 		String detailInfolUrl = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailIntro?serviceKey="
-				+ key + "&numOfRows="+offset+"&pageSize="+offset+"&pageNo="+pageNum+"&startPage=1&MobileOS=ETC&MobileApp=AppTest&contentId="+contentId+"&contentTypeId=15&introYN=Y&_type=json";
-		
+				+ key + "&numOfRows=" + offset + "&pageSize=" + offset + "&pageNo=" + pageNum
+				+ "&startPage=1&MobileOS=ETC&MobileApp=AppTest&contentId=" + contentId
+				+ "&contentTypeId=15&introYN=Y&_type=json";
+
 		JSONObject obj = JSONObject.fromObject(httpConnection(detailInfolUrl)).getJSONObject("response")
 				.getJSONObject("body").getJSONObject("items").getJSONObject("item");
 		dto2 = new FestivalDetailDTO();
@@ -332,7 +359,7 @@ public class FestivalDAOImpl implements FestivalDAO {
 
 		ArrayList<String> list = DetailImgInfo(contentId);
 		HashMap<String, Object> datas = new HashMap<String, Object>();
-		datas.put("dto1",dto1);
+		datas.put("dto1", dto1);
 		datas.put("img_list", list);
 		datas.put("dto2", dto2);
 
@@ -367,9 +394,9 @@ public class FestivalDAOImpl implements FestivalDAO {
 
 		public String getMonthLastDay(String year, String month) {
 			Calendar calendar = Calendar.getInstance();
-			calendar.set((Integer.valueOf(year)), (Integer.valueOf(month) - 1), 1); // ¿ùÀº
-																					// 0ºÎÅÍ
-																					// ½ÃÀÛ
+			calendar.set((Integer.valueOf(year)), (Integer.valueOf(month) - 1), 1); // ï¿½ï¿½ï¿½ï¿½
+																					// 0ï¿½ï¿½ï¿½ï¿½
+																					// ï¿½ï¿½ï¿½ï¿½
 			String lastDay = String.valueOf(calendar.getActualMaximum(Calendar.DATE));
 
 			return lastDay;

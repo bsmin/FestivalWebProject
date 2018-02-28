@@ -14,15 +14,15 @@ public class PageDTO {
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
-	private int totalList; //ÃÑ¸ñ·Ï¼ö: setter, getter
+	private int totalList; //ï¿½Ñ¸ï¿½Ï¼ï¿½: setter, getter
 	public int getTotalList() {
 		return totalList;
 	}
-//	448: ÇÑÆäÀÌÁö¿¡ 10°Ç¾¿ Ç¥Çö
-//        °¢ ÆäÀÌÁö¿¡ º¸¿©Áö´Â ÆäÀÌÁö¹øÈ£ 10°³¾¿ Ç¥Çö	
-//	ÀüÃ¼ ÆäÀÌÁö¼ö: 45
-	private int pageList = 10; //ÇÑ ÆäÀÌÁö´ç º¸¿©Áú ¸ñ·Ï¼ö
-	private int blockPage = 10; //ÇÑ ºí·°´ç º¸¿©Áú ÆäÀÌÁö¼ö
+//	448: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 10ï¿½Ç¾ï¿½ Ç¥ï¿½ï¿½
+//        ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ 10ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½	
+//	ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: 45
+	private int pageList = 10; //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ï¼ï¿½
+	private int blockPage = 10; //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
 	public void setPageList(int pageList) {
 		this.pageList = pageList;
@@ -33,7 +33,7 @@ public class PageDTO {
 	public int getBlockPage() {
 		return blockPage;
 	}
-	private int totalPage; //ÃÑÆäÀÌÁö¼ö
+	private int totalPage; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
 	
 	public int getTotalBlock() {
@@ -47,21 +47,21 @@ public class PageDTO {
 	public int getTotalPage() {
 		return totalPage;
 	}
-	private int totalBlock; //ÃÑºí·°¼ö
-	//ÃÑ ¸ñ·Ï¼ö¿¡ µû¶ó ÃÑÆäÀÌÁö¼ö°¡ °áÁ¤µÊ
+	private int totalBlock; //ï¿½Ñºï¿½ï¿½ï¿½
+	//ï¿½ï¿½ ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void setTotalList(int totalList) {
 		this.totalList = totalList;
 		
-		//ÃÑÆäÀÌÁö¼ö: 448 / 10 = 44 ... 8,  440 / 10 = 44 ..0 
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: 448 / 10 = 44 ... 8,  440 / 10 = 44 ..0 
 		totalPage = totalList / pageList + (totalList % pageList==0 ? 0 : 1);
 		
-		//ÃÑºí·°: 1...10 , 11..20, 21..30, 31..40, 41..45
-		//: 45 / 10 = 4 ...5 --> 5ºí·°,  40 / 10 = 4 ...0 --> 4ºí·°
+		//ï¿½Ñºï¿½: 1...10 , 11..20, 21..30, 31..40, 41..45
+		//: 45 / 10 = 4 ...5 --> 5ï¿½ï¿½,  40 / 10 = 4 ...0 --> 4ï¿½ï¿½
 		totalBlock = totalPage / blockPage + (totalPage % blockPage==0 ?  0 : 1);
 		setCurBlock();
 	}
 	
-	private int curPage; //ÇöÀçÆäÀÌÁö¹øÈ£
+	private int curPage; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£
 	public int getCurPage() {
 		return curPage;
 	}
@@ -69,12 +69,12 @@ public class PageDTO {
 		this.curPage = curPage;
 	}
 	
-	private int curBlock; //ÇöÀçºí·°¹øÈ£: ÆäÀÌÁö¿¡ µû¶ó °áÁ¤µÊ
+	private int curBlock; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public int getCurBlock() {
 		return curBlock;
 	}
-	// °¢ ºí·°¸¶´Ù º¸¿©Áö´Â ÆäÀÌÁö¹øÈ£°¡ ´Ù¸£´Ù.
-	private int beginPage, endPage; // ½ÃÀÛÆäÀÌÁö¹øÈ£, ³¡ÆäÀÌÁö¹øÈ£
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½.
+	private int beginPage, endPage; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£
 	
 	public int getBeginPage() {
 		return beginPage;
@@ -83,8 +83,8 @@ public class PageDTO {
 		return endPage;
 	}
 	public void setCurBlock() {
-		//1ºí·°: 1...10 , 2ºí·°: 11..20, 3ºí·°: 21..30, 31..40, 41..45
-		//ÇöÀçºí·°¹øÈ£: 23 -> 3ºí·°
+		//1ï¿½ï¿½: 1...10 , 2ï¿½ï¿½: 11..20, 3ï¿½ï¿½: 21..30, 31..40, 41..45
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£: 23 -> 3ï¿½ï¿½
 		curBlock = curPage / blockPage;
 		if( curPage % blockPage >0 ) ++curBlock;
 		
@@ -93,18 +93,18 @@ public class PageDTO {
 		endPage = curBlock * blockPage;
 		beginPage = endPage - (blockPage-1);
 		
-		// °è»êµÈ ³¡ÆäÀÌÁö¹øÈ£°¡ ÃÑÆäÀÌÁö¼öº¸´Ù Å©´Ù¸é
-		// ÃÑÆäÀÌÁö¼ö°¡ ³¡ÆäÀÌÁö¹øÈ£°¡ µÇ°Ô ÇÑ´Ù.
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½Ù¸ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ç°ï¿½ ï¿½Ñ´ï¿½.
 		if( endPage>totalPage) endPage = totalPage;
 		
-		// °¢ ÆäÀÌÁö¿¡ µû¶ó º¸¿©Áö´Â ½ÃÀÛ±Û°ú ³¡±Û¹øÈ£
-		// 1ÆäÀÌÁö: 448~439,  2ÆäÀÌÁö: 438~429, 3ÆäÀÌÁö: 428~419, ..
-		// ³¡±Û: 448, 438, 428, .. -> ÃÑ±Û¼ö - (ÆäÀÌÁö¹øÈ£-1) * ÆäÀÌÁö´çº¸¿©Áú¸ñ·Ï¼ö
-		// ½ÃÀÛ±Û: 439, 429, 419, ...
+		// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Û±Û°ï¿½ ï¿½ï¿½ï¿½Û¹ï¿½È£
+		// 1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: 448~439,  2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: 438~429, 3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: 428~419, ..
+		// ï¿½ï¿½ï¿½ï¿½: 448, 438, 428, .. -> ï¿½Ñ±Û¼ï¿½ - (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£-1) * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½çº¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½
+		// ï¿½ï¿½ï¿½Û±ï¿½: 439, 429, 419, ...
 		endList = totalList - (curPage-1)*pageList;
 		beginList = endList - (pageList-1);
 	}
-	private int beginList, endList;// ½ÃÀÛ±Û°ú ³¡±Û¹øÈ£
+	private int beginList, endList;// ï¿½ï¿½ï¿½Û±Û°ï¿½ ï¿½ï¿½ï¿½Û¹ï¿½È£
 	public int getBeginList() {
 		return beginList;
 	}

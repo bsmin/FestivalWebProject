@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean class="notice.service.NoticeServiceImpl"/>
+	<bean class="notice.dao.NoticeDAOImpl"/>
+ 	<bean class="notice.dto.NoticePage">
+<!--  		<qualifier value="notice"/> -->
+ 		</bean> 
+<!-- 	<bean class="notice.service.CommentServiceImpl" > -->
+<!-- 		<qualifier value="notice"/> -->
+<!-- 	</bean> -->
+	<bean id="notice" class="comment.service.CommentServiceImpl" >
+		<qualifier value="notice"/>
+	</bean>
+</beans>
