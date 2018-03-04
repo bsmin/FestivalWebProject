@@ -8,8 +8,9 @@
 <title>Insert title here</title>
 <script type="text/javascript" >
 function go_page( page ){
-	$("#curPage").val( page );
-	$("#list").submit();
+	var form_id = "${category eq 'no' ? 'notice_list' :   (  category eq 'bo' ? 'board_list' : 'list' )  }" ;
+	$("#"+form_id+ " #curPage").val( page );
+	$("#"+form_id).submit();
 }
 </script>
 </head>
@@ -44,8 +45,6 @@ function go_page( page ){
 	</td>
 </tr>
 </table>
-
-
 </body>
 </html>
 

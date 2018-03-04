@@ -23,10 +23,10 @@
 							lemonade... <br />And try to find somebody whose life has given
 							them vodka, and have a party.<br />-Ron White-
 						</h1>
-						<p class="lead white-text">
-							나는 인생이 당신에게 레몬을 주면 레모네이드를 만들어야한다고 믿습니다 ... <br />그리고 삶이 보드카를주고
-							파티를 열어주는 누군가를 찾으십시오.<br />-론 화이트-
-						</p>
+<!-- 						<p class="lead white-text"> -->
+<!-- 							나는 인생이 당신에게 레몬을 주면 레모네이드를 만들어야한다고 믿습니다 ... <br />그리고 삶이 보드카를주고 -->
+<!-- 							파티를 열어주는 누군가를 찾으십시오.<br />-론 화이트- -->
+<!-- 						</p> -->
 					</div>
 				</div>
 			</div>

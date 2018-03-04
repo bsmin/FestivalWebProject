@@ -1,15 +1,42 @@
 package member.dto;
 
 public class MemberDTO {
-	private int u_id; 
+	private int u_id, id; 
 	private String u_email; 
-	private String u_name; 
+	private String u_name, name; 
 	private String u_pwd; 
 	private String u_gender; 
 	private int u_age; 
 	private String u_phone; 
 	private String u_addr; 
+	private int admin;
 	
+	
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(int admin) {
+		this.admin = admin;
+	}
+
 	public MemberDTO() {}
 
 	public MemberDTO(int u_id, String u_email, String u_name, String u_pwd, String u_gender, int u_age, String u_phone,

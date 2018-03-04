@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member.web.mapper">
+
+<select id="email_check" resultType="integer">
+select count(*) from member
+where u_email = #{email}
+</select>
+
+<insert id="insert">
+insert into member(u_name, u_pwd, u_gender, u_birth, u_email, u_post, u_addr, u_phone )
+values ( #{name}, fn_encrypt(#{pwd}), #{gender}, #{birth}, 
+			#{email}, #{post}, #{addresses}, #{phones} )
+</insert>
+
+<!-- <select id="login" resultType="member.web.dto.WebMemberDTO"> -->
+<select id="login" resultType="String">
+select u_name from member  
+where u_email = #{email} and u_pwd = fn_encrypt(#{pwd})
+</select>
+
+</mapper>
+
+
+
+
+

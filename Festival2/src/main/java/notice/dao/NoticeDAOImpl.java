@@ -16,12 +16,17 @@ public class NoticeDAOImpl implements NoticeDAO {
 
 	@Override
 	public boolean insert(NoticeDTO dto) {
+//		boolean insert = mybatis.insert("notice.mapper.insert", dto)>0? true:false;
+//		if( !dto.getF_name().isEmpty() && insert ){
+//			dto.setN_id(  (Integer)mybatis.selectOne("notice.mapper.notice_id", dto) );
+//			mybatis.insert("notice.mapper.files", dto);
+//		}
 		return mybatis.insert("notice.mapper.insert", dto)>0? true:false;
 	}
 
 	@Override
 	public boolean update(NoticeDTO dto) {
-		return mybatis.update("notice.mapper.update", dto) > 0? true:false;
+			return mybatis.update("notice.mapper.update", dto) > 0? true:false;
 	}
 
 	@Override

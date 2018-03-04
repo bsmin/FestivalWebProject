@@ -5,6 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>공지사항 리스트</title>
+
+<style type="text/css">
+.sd{margin-right: }
+</style>
 </head>
 <body>
 <!-- Hero-area -->
@@ -31,10 +35,9 @@
 	</div>
 	<!-- /Hero-area -->
 <h3>공지글 목록</h3>
-
-<form method="post" action="list.no" id="list">
+<form method="post" action="list.no" id="notice_list">
 <div class="search1">
-<table width="80%">
+<table width="40%" >
 <tr>
 	<td class="left">
 	<select name="search" style="height: 29px; width: 80px">
@@ -44,14 +47,15 @@
 		<option value="writer" ${page.search eq "writer" ? "selected":"" }>작성자</option>
 	</select>
 	<input value="${page.keyword }" name="keyword" type="text" style="height: 23px; width: 500px"/>
-	<img class="click" onclick="submit()" src="imgs/btn_search.png" style="vertical-align: bottom;"/>	
+	<img class="click" onclick="submit()" src="imgs/magnifier.png" style="vertical-align: bottom; margin-right: 80px;"/>	
+	<img src="imgs/pencil-edit-button.png"class="click" onclick="location='new.no'"/>
 	</td>
 	<tr>
 	<td class="right">
-	<!-- 관리자로 로그인되어 있는 경우 글쓰기 권한 -->
-	<%-- <c:if test="${login_info.admin eq 1 }"> --%>
-	<img src="imgs/btn_write.png"class="click" onclick="location='new.no'"/>
-	<%-- </c:if> --%>
+	<%-- <!-- 관리자로 로그인되어 있는 경우 글쓰기 권한 -->
+	<c:if test="${login_info.admin eq 1 }"> --%>
+	
+ 	<%-- </c:if> --%>
 	</td>
 </tr>
 </table>
@@ -61,29 +65,31 @@
 	<input type="hidden" name="curPage" id="curPage"/>
 
 <script type="text/javascript">
-function go_detail( id) {
+function go_detail(id) {
+	
 	$('#id').val(id);
 	$('#curPage').val(${page.curPage});
-	$('#list').attr('action', 'detail.no');
-	$('#list').submit();
+	$('#notice_list').attr('action', 'detail.no');
+	$('#notice_list').submit();
 }
 </script>
 
-<table border="1" width="80%">
-<tr><th width="70px">번호</th><th>제목</th>
-	<th width="70px">작성자</th>
-	<th width="100px">등록일자</th>
-	<th width="70px">조회수</th>
+<table border="1" width="60%" bordercolor="#BDBDBD">
+<tr><th width="70px" class="center">번호</th><th class="center">제목</th>
+	<th width="70px" class="center">작성자</th>
+	<th width="100px" class="center">등록일자</th>
+	<th width="70px" class="center">조회수</th>
 </tr>
 <c:forEach items="${page.list }" var="dto">
-<tr>
-	<td>${dto.no }</td>
-	<td class="left"><a onclick="go_detail(${dto.id})">${dto.title }</a></td>
-	<td>${dto.writer }</td>
-	<td>${dto.writedate }</td>
-	<td>${dto.readcnt }</td>
-
-</tr>
+	<tr>
+		<td>${dto.no }</td>
+		<td class="left"><a onclick="go_detail(${dto.n_id})">${dto.n_title }</a></td>
+		<td>${dto.n_writer }</td>
+		<td>${dto.n_writedate }</td>
+		<td>${dto.n_readcnt }</td>
+		
+	</tr>
+	
 </c:forEach>
 </table>
 <br>

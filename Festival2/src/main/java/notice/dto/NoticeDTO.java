@@ -4,9 +4,16 @@ import java.sql.Date;
 
 public class NoticeDTO {
 	private int n_id, n_readcnt, no;
-	private String n_title, n_writer, n_content;
+	private String n_title, n_writer, n_content, u_email;
 	private Date n_writedate;
 	private String f_path, f_name;
+	
+	public String getU_email() {
+		return u_email;
+	}
+	public void setU_email(String u_email) {
+		this.u_email = u_email;
+	}
 	public int getN_id() {
 		return n_id;
 	}

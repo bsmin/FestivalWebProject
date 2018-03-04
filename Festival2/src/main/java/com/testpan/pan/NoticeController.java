@@ -1,14 +1,11 @@
 package com.testpan.pan;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,19 +15,31 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import common.service.CommonService;
+import member.dto.MemberDTO;
 import notice.dto.NoticeDTO;
 import notice.dto.NoticePage;
 import notice.service.NoticeService;
 
 @Controller
-@SessionAttributes("category") //어느페이지를 클릭했는디 보여주기위한 속성추가
+@SessionAttributes(value={"category", "login_info"}) //어느페이지를 클릭했는디 보여주기위한 속성추가
 public class NoticeController {
 	@Autowired  private NoticeService notice;
-	//공지사항 페이지 넘어가기
-	@RequestMapping("/notice")
-	public String notice(){
-		return "notice/list";
-	}
+//	//공지사항 페이지 넘어가기
+//	@RequestMapping("/notice")
+//	public String notice(Model model){
+//		String u_email = "admin@festival.com";
+//		String u_name = "관리자";
+//		int admin = 1;
+//		MemberDTO dto = new MemberDTO();
+//		dto.setU_email(u_email);
+//		dto.setU_name(u_name);
+//		dto.setAdmin(admin);
+//				
+//		//session.setAttribute("login_info", dto);
+//		model.addAttribute("login_info", dto);
+//
+//		return "notice/list";
+//	}
 	
 	//공지글 삭제처리 요청
 	@RequestMapping("/delete.no")
@@ -43,7 +52,7 @@ public class NoticeController {
 	@RequestMapping("/update.no")
 	public String update(NoticeDTO dto, @RequestParam MultipartFile file, HttpSession session){
 		dto.setF_path("");
-		dto.setF_name("");
+		if( dto.getF_name().isEmpty() ) dto.setF_name("");
 		if(file.getSize()>0){
 			dto.setF_name(file.getOriginalFilename());
 			dto.setF_path(common.upload(file, "notice", session));
@@ -85,6 +94,7 @@ public class NoticeController {
 	//신규공지글 저장처리 요청
 	@RequestMapping("/insert.no")
 	public String insert(NoticeDTO dto, @RequestParam MultipartFile file , HttpSession session){
+		dto.setU_email( ((MemberDTO)session.getAttribute("login_info")).getU_email() );
 		dto.setF_path("");
 		dto.setF_name("");
 		if(file.getSize() > 0 ){
@@ -98,7 +108,18 @@ public class NoticeController {
 	
 	//공지글 글쓰기 화면 요청
 	@RequestMapping("/new.no")
-	public String list(){
+	public String list(Model model){
+		String u_email = "admin@festival.com";
+		String u_name = "관리자";
+		int admin = 1;
+		MemberDTO dto = new MemberDTO();
+		dto.setU_email(u_email);
+		dto.setU_name(u_name);
+		dto.setAdmin(admin);
+				
+//		session.setAttribute("login_info", dto);
+		model.addAttribute("login_info", dto);
+	
 		return "notice/new";
 	}
 	
@@ -110,19 +131,20 @@ public class NoticeController {
 	//기본값을 지정 → @RequestParam(defaultValue="")
 	public String list(Model model, @RequestParam(defaultValue="1") int curPage,
 									@RequestParam(required=false) String search,
-									@RequestParam(defaultValue="") String keyword){
-		
+									@RequestParam(defaultValue="") String keyword, HttpSession session){
+
 		model.addAttribute("category", "no");
+		
 		page.setCurPage(curPage);
 		page.setSearch(keyword.isEmpty() ? "" : search);
 		page.setKeyword(keyword);
 		
 		if(keyword.isEmpty()){
 		// 검색어가 없으면 전체목록조회이고(List<NoticeDTO> list = notice.list();
-		
 		// 검색어가 있으면 검색어 목록조회
 //		List<NoticeDTO> list = notice.list();
 //			model.addAttribute("list", list);
+//			model.addAttribute("page", null);
 			model.addAttribute("page", notice.list(page));
 		}else{
 			//검색어가 있으면 검색어 조회

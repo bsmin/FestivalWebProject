@@ -9,29 +9,52 @@
 
 </head>
 <body>
-<h3>공지글 안내 변경</h3>
+<!-- Hero-area -->
+	<div class="hero-area section">
+
+		<!-- Backgound Image -->
+		<div class="bg-image bg-parallax overlay"
+			style="background-image: url(./img/default.jpg)"></div>
+		<!-- /Backgound Image -->
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1 text-center">
+					<ul class="hero-area-tree">
+						<li><a href="index">Home</a></li>
+						<li><a href="notice">Notice</a></li>
+					</ul>
+					<h1 class="white-text">Notice</h1>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- /Hero-area -->
+<h3>공지글 수정</h3>
 
 <form method="post" action="update.no" enctype="multipart/form-data">
-<input type="hidden" name="id" value="${dto.id }"/>
-<table border="1" width="80%">
-<tr><th width="100px">제목</th>
-	<td class="left"><input value="${dto.title }" type="text" name="title" 
-		class="needs" title="제목" size="73"/></td>
+<input type="hidden" name="n_id" value="${dto.n_id }"/>
+<table border="1" width="60%" bordercolor="#BDBDBD">
+<tr><th width="100px" class="center">제목</th>
+	<td class="left"><input value="${dto.n_title }" type="text" name="n_title" 
+		class="needs" title="제목" size="73"  style="color:black;"/></td>
 </tr>
-<tr><th>작성자</th>
-	<td class="left">${dto.writer }</td>
+<tr><th class="center">작성자</th>
+	<td class="left">${dto.u_email }</td>
 </tr>
-<tr><td>내용</td>
-	<td class="left"><textarea rows="15" name="content" cols="74" 
-		class="needs" title="내용">${dto.title }</textarea></td>
+<tr><td >내용</td>
+	<td class="left"><textarea rows="15" name="n_content" cols="74" style="height: 200px;" 
+		class="need" title="내용">${dto.n_content }</textarea></td>
 </tr>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <tr><td>첨부파일</td>
-	<td class="left"><original>${dto.filename }</original>
+	<td class="left"><original>${dto.f_name }</original>
 	<input type="file" name="file" onchange="file_change(this)"/>
-	<c:if test="${!empty dto.filename}">
+	<c:if test="${!empty dto.f_name}">
 	<input type="button" value="파일삭제" 
-			onclick="$('original').html(''); $('#delete').css('display','none')"/>
+			onclick="$('original').html(''); $('#delete').css('display','none'); "/>
 	</c:if>
 	</td>
 <!-- 	display:block/none, visibility:hidden/visible -->
@@ -46,19 +69,20 @@ function file_change(attach) {
 		$("original").html("");
 		 $('#delete').css('display','block');
 	}else{
-		$("original").html("${dto.filename}");
+		$("original").html("${dto.f_name}");
 	}	
 }
 </script>
 
 
-<img src="imgs/btn_save.png" onclick="if(necessary()) {submit()}"/>
+<img src="imgs/btn_save.png" class="click" onclick="if( necessary() ) {  $('[name=f_name]').val($('original').html());  submit()  }"/>
 <img src="imgs/btn_cancel.png" onclick="history.go(-1)"/>
 <img src="imgs/btn_list.png" onclick="$('form').attr('action','list.no'); submit()"/>
 
 <input type="hidden" name="curPage" value="${page.curPage }"/>
 <input type="hidden" name="search" value="${page.search }"/>
 <input type="hidden" name="keyword" value="${page.keyword }"/>
+<input type="hidden" name="f_name" />
 
 </form>
 </body>

@@ -9,8 +9,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-<title>HTML Education Template</title>
-
 <!-- Custom stlylesheet -->
 <link type="text/css" rel="stylesheet" href="css/style.css" />
 <!-- Login stlylesheet -->
@@ -55,7 +53,7 @@
 		$.ajax({
 			type : 'post',
 			data : {
-				id : $("#login_id").val(),
+				email : $("#login_id").val(),
 				pwd : $("#login_pwd").val()
 			},
 			url : "login",
@@ -71,75 +69,6 @@
 			},
 			error : function(request, status) {
 				alert("로그인 실패! : " + request.status);
-			}
-		});
-	}
-
-	function validate(tag, pwd) {
-		var result = $("[name=" + tag + "]").val();
-		if (tag == "id") {
-			result = join_check.id_status(result);
-		} else if (tag == "pwd") {
-			result = join_check.pwd_status(result);
-		} else if (tag == "pwd_ck") {
-			result = join_check.pwd_check(result, pwd);
-		} else if (tag == "birth") {
-			result = join_check.birth_status(result);
-		} else if (tag == "email") {
-			result = join_check.email_status(result);
-		}
-
-		$("#" + tag + "_status").removeClass("valid").removeClass("invalid");
-		$("#" + tag + "_status").addClass(
-				result.code == 'valid' ? 'valid' : 'invalid');
-		$("#" + tag + "_status").text(result.desc);
-
-		return result;
-	}
-
-	function after(date) {
-		if (date > new Date()) {
-			return [ false ];
-		} else {
-			return [ true ];
-		}
-	}
-
-	$(function() {
-		$("[name=birth]").datepicker(
-				{
-					dateFormat : "yy-mm-dd",
-					changeYear : true,
-					changeMonth : true,
-					monthNamesShort : [ '1월', '2월', '3월', '4월', '5월', '6월',
-							'7월', '8월', '9월', '10월', '11월', '12월' ],
-					dayNamesMin : [ '일', '월', '화', '수', '목', '금', '토' ],
-					beforeShowDay : after
-				});
-
-	});
-	function duplicate(id) {
-		var result = validate("id");
-		if (result.code != "valid") {
-			alert("중복확인 불가: " + result.desc);
-			return;
-		}
-		//	 	alert( "중복확인 가능");
-		$.ajax({
-			type : 'post',
-			data : {
-				id : id
-			},
-			url : 'id_check',
-			success : function(data) {
-				var result = join_check.id_usable(data);
-				$("#id_status").addClass(
-						result.code == "usable" ? "valid" : "invalid");
-				$("#id_status").text(result.desc);
-				$("#id_check").val(result.code);
-			},
-			error : function(request, status) {
-				alert("아이디 중복확인 실패! : " + request.status);
 			}
 		});
 	}
@@ -177,7 +106,7 @@
 							<li><a href="season">Season</a></li>
 							<!-- <li><a href="blog">Blog</a></li> -->
 							<li><a href="board">Board</a></li>
-							<li><a href="notice">Notice</a></li>
+							<li><a href="list.no">Notice</a></li>
 						</ul>
 					</nav> <!-- /Navigation -->
 
@@ -188,9 +117,9 @@
 						<!-- 로그인상태 -->
 						<c:if test="${ !empty login_info }">
 							<ul>
-								<li>${login_info.id }[${login_info.name }]&nbsp;&nbsp;</li>
-								<li><img onclick="go_logout()" class="click"
-									src="imgs/btn_logout.png" /></li>
+<%-- 								<li>${login_info.id }[${login_info.name }]&nbsp;&nbsp;</li> --%>
+								<li class="userName">[${login_info} 님]&nbsp;&nbsp;</li>
+								<li><Button onclick="go_logout()" class="click">로그인아웃</Button></li>
 							</ul>
 						</c:if>
 
@@ -204,7 +133,7 @@
 										onkeypress="if(event.keyCode==13) go_login()" size="8"
 										type="password" id="login_pwd" placeholder="비밀번호" /></td>
 									<td><Button onclick="go_login()" class="click">로그인</Button></td>
-									<td><Button onclick="location='member'" class="click">회원가입</Button></td>
+									<td><Button onclick="location='sign_up'" class="click">회원가입</Button></td>
 								</tr>
 							</table>
 						</c:if>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="notice.mapper" >
+	<update id="read">
+		update notice set n_readcnt=n_readcnt+1
+		where n_id = #{n_id}
+	</update>
+
+	<select id="select" resultType="notice.dto.NoticeDTO">
+<!-- 	select  (select u_name from member where u_email=n.u_email) n_writer, n.*, f_path, f_name  from notice n, files f  -->
+<!-- 	where n.n_id =#{n_id} and n.n_id=f.n_id -->
+	select  (select u_name from member where u_email=n.u_email) n_writer, n.*  from notice n  
+	where n_id =#{n_id} 
+	</select>
+
+<!-- 검색조건에 해당하는 where 절 -->
+	<sql id="where">
+	<if test="search=='n_title' or search=='n_content' or search=='n_writer' ">
+	where ${search} like #{keyword}
+	</if>
+	<if test="search=='all'">
+	where n_title like #{keyword} 
+		or n_content like #{keyword}
+		or n_writer like #{keyword}
+	</if>
+	</sql>
+
+<select id="total" resultType="integer">
+	select count(*) from notice <include refid="where"/>
+</select>
+
+<select id="list" resultType="notice.dto.NoticeDTO">
+	select * 
+	from (select n.*, rownum no
+		from (select * from notice <include refid="where"/> order by n_id) n
+	order by no desc)
+	where no between #{beginList} and #{endList}
+</select>
+
+<insert id="files" >
+insert into files ( u_email, f_path, f_name, n_id )
+values ( #{u_email}, #{f_path}, #{f_name}, #{n_id} )
+</insert>
+
+<select id="notice_id"  resultType="integer">
+select n_id from notice where u_email=#{u_email} and n_title=#{n_title} and n_content=#{n_content}
+</select>
+
+<insert id="insert">
+	<!-- insert into notice(n_title, n_writer, n_content, f_path, f_name)
+	values (#{n_title}, #{n_writer}, #{n_content}, #{f_path}, #{f_name}) -->
+	insert into notice(u_email, n_title, n_content, f_path, f_name)
+	values (#{u_email}, #{n_title}, #{n_content}, #{f_path}, #{f_name} )
+</insert>
+
+<sql id="file">
+	<if test="f_name!=''">
+	,f_name=#{f_name}, f_path=#{f_path}
+	</if>	
+</sql>
+	
+<update id="update">
+<!-- 선택된 파일이 있는 경우만 filename, filepath 를 변경한다. -->
+	update notice set n_title=#{n_title}, n_content=#{n_content} <include refid="file"/>
+	where n_id=#{n_id}
+</update>
+	
+<delete id="delete">
+	delete from notice
+	where n_id = #{n_id}
+</delete>
+	
+</mapper>

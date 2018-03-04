@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="comment.mapper">
+
+
+<delete id="comment_delete">
+	delete from comments
+	where c_id = #{c_id}
+</delete>
+
+
+<update id="comment_update">
+	update comments
+	set content = #{c_content}
+	where c_id = #{c_id}
+</update>
+
+
+<select id="comment_list" resultType="comment.dto.CommentDTO">
+	select c.*, to_char(c_writedate, 'yyyy-mm-dd hh24:mi:ss') str_writedate,
+		(select name from member m where m.u_email=u_email) name
+	from comments c 
+	where b_id = #{b_id}
+	order by id desc
+</select>
+
+<insert id="comment_insert">
+	insert into board_comment(pid,userid,content)
+	values(#{pid},#{userid},#{content})
+</insert>
+
+
+
+
+</mapper>

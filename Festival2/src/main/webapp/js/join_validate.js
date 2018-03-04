@@ -26,7 +26,9 @@ var join_check = {
 		email : {
 			empty:{ code:'empty',  desc:'이메일을 입력하세요'},
 			invalid:{ code:'invalid',  desc:'이메일이 유효하지 않습니다.'},
-			valid:{ code:'valid',  desc:'유효한 이메일입니다.'}
+			valid: { code:'valid', desc:'이메일 중복여부를 확인하세요' },
+			usable: { code:'usable', desc:'사용가능한 이메일입니다' },
+			unusable: { code:'unusable', desc:'이미 사용중인 이메일입니다' }
 		},
 		
 		birth : {
@@ -43,6 +45,14 @@ var reg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[
 			return this.result.email.invalid;
 		}else{
 			return this.result.email.valid;
+		}
+	},
+	
+	email_usable : function( use ){
+		if( use=="true" ){
+			return this.result.id.usable;
+		}else{
+			return this.result.id.unusable;
 		}
 	},
 	

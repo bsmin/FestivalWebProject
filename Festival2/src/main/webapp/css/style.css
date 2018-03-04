@@ -32,6 +32,12 @@ Table OF Contents
 /*------------------------------------*\
 	General
 \*------------------------------------*/
+.userName{
+	font-size: 20px;
+	color: white;
+	text-align: center;
+	padding-top: 3px;
+}
 /* --- typography --- */
 body {
     font-family: 'Montserrat', sans-serif;
