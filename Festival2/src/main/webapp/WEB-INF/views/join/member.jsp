@@ -156,8 +156,10 @@ function duplicate( email ){
 
 </table>
 <br>
-<img onclick="go_submit()" class="click" src="imgs/btn_join.png" />
-<img class="click" src="imgs/btn_cancel.png" onclick="history.go(-1)"/>
+<div>
+	<button onclick="go_submit()" class="btn_join">회원가입</button>
+	<button class="btn_cancel" onclick="history.go(-1)">취소</button>
+</div>
 <!-- 아이디중복확인여부를 관리할 태그 -->
 <input type="hidden" id="id_check" value="n"/>
 
