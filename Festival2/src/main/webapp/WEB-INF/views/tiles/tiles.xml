@@ -9,6 +9,9 @@
 	<definition name="errors/" template="/WEB-INF/views/tiles/error.jsp">
 		<put-attribute name="main" value="/WEB-INF/views/error/{1}.jsp"/>
 	</definition>
+	<definition name="mperson/" template="/WEB-INF/views/tiles/android.jsp">
+		<put-attribute name="main" value="/WEB-INF/views/mperson/{1}.jsp"/>
+	</definition>
 	
 <!-- 	응답하는 페이지마다 달라지는 main 에 해당하는 페이지 지정 -->
 <!-- 	customer/list.jsp .. : 고객관리 -->

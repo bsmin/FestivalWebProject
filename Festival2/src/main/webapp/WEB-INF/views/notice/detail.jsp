@@ -19,9 +19,9 @@
 				<div class="col-md-10 col-md-offset-1 text-center">
 					<ul class="hero-area-tree">
 						<li><a href="index">Home</a></li>
-						<li><a href="notice">Notice</a></li>
+						<li><a href="notice">Board</a></li>
 					</ul>
-					<h1 class="white-text">Notice</h1>
+					<h1 class="white-text">Board</h1>
 
 				</div>
 			</div>
@@ -29,7 +29,12 @@
 
 	</div>
 	<!-- /Hero-area -->
-<h3>공지글 상세</h3>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <table border="1" width="60%" bordercolor="#BDBDBD">
 <tr><th width="100px" class="center">제목</th>
@@ -58,7 +63,7 @@
 
 <!-- 관리자로 로그인 되어 있는 경우 수정/삭제 권한 -->
 
-<c:if test="${login_info.admin eq 1 }">
+<c:if test="${!empty login_info}"><%-- <c:if test="${login_info.admin eq 1 }"> --%>
 <img class="click" src="imgs/btn_modify.png" onclick="location='modify.no?id=${detail.n_id}'"/>
 <img class="click" src="imgs/btn_delete.png" 
 	onclick="if(confirm('[${detail.n_title}] 삭제하시겠습니까?')) {location='delete.no?id=${detail.n_id}'}"/>

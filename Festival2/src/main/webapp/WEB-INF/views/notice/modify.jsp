@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>공지글 안내 변경</title>
+<title>게시판 수정</title>
 <script src="js/needs_check.js"></script>
 
 </head>
@@ -22,9 +22,9 @@
 				<div class="col-md-10 col-md-offset-1 text-center">
 					<ul class="hero-area-tree">
 						<li><a href="index">Home</a></li>
-						<li><a href="notice">Notice</a></li>
+						<li><a href="notice">Board</a></li>
 					</ul>
-					<h1 class="white-text">Notice</h1>
+					<h1 class="white-text">Board</h1>
 
 				</div>
 			</div>
@@ -32,7 +32,13 @@
 
 	</div>
 	<!-- /Hero-area -->
-<h3>공지글 수정</h3>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
 <form method="post" action="update.no" enctype="multipart/form-data">
 <input type="hidden" name="n_id" value="${dto.n_id }"/>
@@ -42,7 +48,7 @@
 		class="needs" title="제목" size="73"  style="color:black;"/></td>
 </tr>
 <tr><th class="center">작성자</th>
-	<td class="left">${dto.u_email }</td>
+	<td class="left">${dto.n_writer }</td>
 </tr>
 <tr><td >내용</td>
 	<td class="left"><textarea rows="15" name="n_content" cols="74" style="height: 200px;" 
@@ -83,6 +89,7 @@ function file_change(attach) {
 <input type="hidden" name="search" value="${page.search }"/>
 <input type="hidden" name="keyword" value="${page.keyword }"/>
 <input type="hidden" name="f_name" />
+<input type="hidden" name="f_path"  value="${dto.f_path }"/>
 
 </form>
 </body>

@@ -30,7 +30,7 @@
 						<ul class="footer-nav">
 							<li><a href="index">Home</a></li>
 							<li><a href="season">Season</a></li>
-							<li><a href="notice">Notice</a></li>
+							<li><a href="notice">Board</a></li>
 						</ul>
 					</div>
 					<!-- /footer nav -->
@@ -57,7 +57,7 @@
 					<!-- copyright -->
 					<div class="col-md-8 col-md-pull-4">
 						<div class="footer-copyright">
-							<span>&copy; GoodFestival 2018. <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="index">Festival</a></span>
+							<span>&copy; GoodFestival 2018. <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="board">Festival</a></span>
 						</div>
 					</div>
 					<!-- /copyright -->

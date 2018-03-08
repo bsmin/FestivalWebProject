@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import common.service.CommonService;
-import member.dto.MemberDTO;
+import member.web.dto.WebMemberDTO;
 import notice.dto.NoticeDTO;
 import notice.dto.NoticePage;
 import notice.service.NoticeService;
@@ -51,12 +51,16 @@ public class NoticeController {
 	//공지글 내용 변경처리 요청
 	@RequestMapping("/update.no")
 	public String update(NoticeDTO dto, @RequestParam MultipartFile file, HttpSession session){
-		dto.setF_path("");
-		if( dto.getF_name().isEmpty() ) dto.setF_name("");
 		if(file.getSize()>0){
+			dto.setF_name("");
+			dto.setF_path("");
 			dto.setF_name(file.getOriginalFilename());
 			dto.setF_path(common.upload(file, "notice", session));
-			
+		}else{
+			if( dto.getF_name().isEmpty() ){
+				dto.setF_name("");
+				dto.setF_path("");
+			}
 		}
 		notice.update(dto);
 		return "redirect:detail.no?id="+dto.getN_id();
@@ -94,7 +98,7 @@ public class NoticeController {
 	//신규공지글 저장처리 요청
 	@RequestMapping("/insert.no")
 	public String insert(NoticeDTO dto, @RequestParam MultipartFile file , HttpSession session){
-		dto.setU_email( ((MemberDTO)session.getAttribute("login_info")).getU_email() );
+		dto.setU_email( ((WebMemberDTO)session.getAttribute("login_info")).getEmail() );
 		dto.setF_path("");
 		dto.setF_name("");
 		if(file.getSize() > 0 ){
@@ -109,17 +113,6 @@ public class NoticeController {
 	//공지글 글쓰기 화면 요청
 	@RequestMapping("/new.no")
 	public String list(Model model){
-		String u_email = "admin@festival.com";
-		String u_name = "관리자";
-		int admin = 1;
-		MemberDTO dto = new MemberDTO();
-		dto.setU_email(u_email);
-		dto.setU_name(u_name);
-		dto.setAdmin(admin);
-				
-//		session.setAttribute("login_info", dto);
-		model.addAttribute("login_info", dto);
-	
 		return "notice/new";
 	}
 	

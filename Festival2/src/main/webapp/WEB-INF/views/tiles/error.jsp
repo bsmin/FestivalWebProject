@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>응용SW엔지니어링 과정</title>
+<title>좋은축제 에러</title>
 <link rel="stylesheet" type="text/css" href="css/default.css">
 <link rel="icon" type="image/x-icon" href="imgs/hanul.ico">
 <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>

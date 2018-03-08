@@ -21,9 +21,9 @@
 				<div class="col-md-10 col-md-offset-1 text-center">
 					<ul class="hero-area-tree">
 						<li><a href="index">Home</a></li>
-						<li><a href="list.no">notice</a></li>
+						<li><a href="list.no">Board</a></li>
 					</ul>
-					<h1 class="white-text">Notice</h1>
+					<h1 class="white-text">Board</h1>
 
 				</div>
 			</div>
@@ -31,14 +31,20 @@
 
 	</div>
 	<!-- /Hero-area -->
-<h3>공지글 작성</h3>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <!-- 파일업로드처리를 할 수 있도록 파일태그를 전송하기 위해서는 
 반드시 
 1.form 태그에 enctype='multipart/form-data' 속성지정  → 파일 업로드하기위새너는 enctype='multipart/form-data' 필수
 2.method='post'로 지정
  -->
 <form method="post" action="insert.no" enctype='multipart/form-data'>
-<table border="1" width="60%" bordercolor="#BDBDBD">
+<table border="1" width="40%" bordercolor="#BDBDBD">
 <tr><th width="100px" class="center">제목</th>
 	<td class="left" ><input type="text" name="n_title" class="needs" title="제목" size="73" style="color:black;"/></td>
 </tr>

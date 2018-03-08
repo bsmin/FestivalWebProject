@@ -7,6 +7,6 @@ public interface WebMemberDAO {
 	boolean insert( WebMemberDTO dto );
 	boolean update( WebMemberDTO dto );
 	boolean delete( String email );
-//	WebMemberDTO select( String email, String pwd );
-	String select( String email, String pwd );
+	WebMemberDTO select( String email, String pwd );
+//	String select( String email, String pwd );
 }

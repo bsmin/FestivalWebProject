@@ -31,10 +31,10 @@
 </select>
 
 <select id="list" resultType="notice.dto.NoticeDTO">
-	select * 
+	select (select u_name from member where u_email=n.u_email ) n_writer, n.*
 	from (select n.*, rownum no
 		from (select * from notice <include refid="where"/> order by n_id) n
-	order by no desc)
+	order by no desc) n 
 	where no between #{beginList} and #{endList}
 </select>
 
@@ -55,9 +55,9 @@ select n_id from notice where u_email=#{u_email} and n_title=#{n_title} and n_co
 </insert>
 
 <sql id="file">
-	<if test="f_name!=''">
+<!-- 	<if test="f_name != ''"> -->
 	,f_name=#{f_name}, f_path=#{f_path}
-	</if>	
+<!-- 	</if>	 -->
 </sql>
 	
 <update id="update">

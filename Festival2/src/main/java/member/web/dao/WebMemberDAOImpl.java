@@ -33,7 +33,7 @@ public class WebMemberDAOImpl implements WebMemberDAO {
 	}
 
 	@Override
-	public String select(String email, String pwd) {
+	public WebMemberDTO select(String email, String pwd) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("email", email);
 		map.put("pwd", pwd);

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>공지사항 리스트</title>
+<title>게시글 리스트</title>
 
 <style type="text/css">
 .sd{margin-right: }
@@ -24,9 +24,9 @@
 				<div class="col-md-10 col-md-offset-1 text-center">
 					<ul class="hero-area-tree">
 						<li><a href="index">Home</a></li>
-						<li><a href="notice">Notice</a></li>
+						<li><a href="notice">Board</a></li>
 					</ul>
-					<h1 class="white-text">Notice</h1>
+					<h1 class="white-text">Board</h1>
 
 				</div>
 			</div>
@@ -34,7 +34,11 @@
 
 	</div>
 	<!-- /Hero-area -->
-<h3>공지글 목록</h3>
+
+<br>
+<br>
+<br>
+<br>
 <form method="post" action="list.no" id="notice_list">
 <div class="search1">
 <table width="40%" >
@@ -48,14 +52,15 @@
 	</select>
 	<input value="${page.keyword }" name="keyword" type="text" style="height: 23px; width: 500px"/>
 	<img class="click" onclick="submit()" src="imgs/magnifier.png" style="vertical-align: bottom; margin-right: 80px;"/>	
+	<!-- 관리자로 로그인되어 있는 경우 글쓰기 권한 -->
+	<c:if test="${!empty login_info}">
 	<img src="imgs/pencil-edit-button.png"class="click" onclick="location='new.no'"/>
+ 	</c:if>
 	</td>
 	<tr>
 	<td class="right">
-	<%-- <!-- 관리자로 로그인되어 있는 경우 글쓰기 권한 -->
-	<c:if test="${login_info.admin eq 1 }"> --%>
 	
- 	<%-- </c:if> --%>
+	
 	</td>
 </tr>
 </table>

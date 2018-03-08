@@ -15,7 +15,7 @@
 	<!-- 로그인 체크 후 정보전송 -->
 	<select id="login" resultType="member.dto.MemberDTO">
 	select * from member 
-	where u_email = #{u_email} and u_pwd = #{u_pwd}
+	where u_email = #{u_email} and u_pwd = fn_encrypt(#{u_pwd})
 	</select>
 	
 	<!-- 패스워드 재발급을 위한 업데이트 -->

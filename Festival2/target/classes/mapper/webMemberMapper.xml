@@ -14,9 +14,9 @@ values ( #{name}, fn_encrypt(#{pwd}), #{gender}, #{birth},
 			#{email}, #{post}, #{addresses}, #{phones} )
 </insert>
 
-<!-- <select id="login" resultType="member.web.dto.WebMemberDTO"> -->
-<select id="login" resultType="String">
-select u_name from member  
+<select id="login" resultType="member.web.dto.WebMemberDTO">
+<!-- <select id="login" resultType="String"> -->
+select u_name name, u_pwd pwd, u_gender gender, u_birth birth, u_email email, u_post post, u_addr addresses, u_phone phones from member  
 where u_email = #{email} and u_pwd = fn_encrypt(#{pwd})
 </select>
 

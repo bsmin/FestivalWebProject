@@ -82,29 +82,29 @@ public class MemberController {
 	@RequestMapping("/login")
 	@ResponseBody
 	public String userLogin(Model model, @RequestParam String email, @RequestParam String pwd) {
-//		WebMemberDTO dto = member.select(email, pwd);
-		String name = member.select(email, pwd);
-		System.out.println("회원 이름 : "+name);
-//		if (dto != null)
-		if (name != null)
-//			model.addAttribute("login_info", dto);
-			model.addAttribute("login_info", name);
+//		String name = member.select(email, pwd);
+//		System.out.println("회원 이름 : "+name);
+//		if (name != null)
+//			model.addAttribute("login_info", name);
 
-		return name == null ? "fail" : "success";
+		WebMemberDTO dto = member.select(email, pwd);
+		if (dto != null)
+			model.addAttribute("login_info", dto);
+
+		return dto == null ? "fail" : "success";
 	}
 
 	// - /2018.03.02 웹 회원기능 -작성자 백성민
 	
 	
 	
-	
-	
-	
-	
 
 	// 이메일 유효성 검사
 	@RequestMapping("/checkemail.mem")
-	public String emailcheck(@RequestParam String u_email, Model model) {
+	@ResponseBody
+	public JsonObject emailcheck(@RequestParam String u_email, Model model) {
+		System.out.println("checkEmail");
+		
 		String checkEmail;
 		checkEmail = members.emailcheck(u_email);
 		if (checkEmail == null || checkEmail.equals("")) {
@@ -118,7 +118,7 @@ public class MemberController {
 		String jsonData = gson.toJson(object);
 		model.addAttribute("checkEmail", jsonData);
 		System.out.println(jsonData);
-		return "mperson/insert";
+		return object;
 	}
 
 	// 이메일 인증 및 이메일 찾기 요청
@@ -160,23 +160,30 @@ public class MemberController {
 
 	// 로그인처리 요청
 	@RequestMapping("/login.mem")
-	public String login(Model model, @RequestParam String u_email, @RequestParam String u_pwd) {
-		try {
-			MemberDTO memberDTO = members.select(u_email, u_pwd);
-			System.out.println(memberDTO.toString());
-			Gson gson = new Gson();
-			String jsonData = gson.toJson(memberDTO);
-			model.addAttribute("joinL", jsonData);
-			return "mperson/insert";
-		} catch (Exception e) {
-			MemberDTO memberDTO = new MemberDTO();
-			System.out.println(memberDTO);
-			Gson gson = new Gson();
-			String jsonData = gson.toJson(memberDTO);
-			model.addAttribute("joinL", jsonData);
-			return "mperson/insert";
-		}
+	@ResponseBody
+	public JsonObject login(Model model, @RequestParam String u_email, @RequestParam String u_pwd) {
+		JsonObject object = new JsonObject();
+		MemberDTO memberDTO = members.select(u_email, u_pwd);
+		if( memberDTO != null ){
+			
+			object.addProperty("u_id", memberDTO.getU_id());
+			object.addProperty("u_email", memberDTO.getU_email());
+			object.addProperty("u_pwd", memberDTO.getU_pwd());
+			object.addProperty("u_name", memberDTO.getU_name());
+			object.addProperty("u_age", memberDTO.getU_age());
 
+//			System.out.println(memberDTO.toString());
+//			Gson gson = new Gson();
+//			String jsonData = gson.toJson(memberDTO);
+//			model.addAttribute("joinL", jsonData);
+//			return memberDTO.toString();
+		} else{
+			object.addProperty("u_id", -1);
+//			Gson gson = new Gson();
+//			String jsonData = gson.toJson(memberDTO);
+//			model.addAttribute("joinL", jsonData);
+		}
+		return object;
 	}
 
 	// 임시비밀번호발송 이메일 인증

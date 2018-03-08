@@ -105,8 +105,8 @@
 							<li><a href="index">Home</a></li>
 							<li><a href="season">Season</a></li>
 							<!-- <li><a href="blog">Blog</a></li> -->
-							<li><a href="board">Board</a></li>
-							<li><a href="list.no">Notice</a></li>
+							<!-- <li><a href="board">Board</a></li> -->
+							<li><a href="list.no">Board</a></li>
 						</ul>
 					</nav> <!-- /Navigation -->
 
@@ -118,8 +118,8 @@
 						<c:if test="${ !empty login_info }">
 							<ul>
 <%-- 								<li>${login_info.id }[${login_info.name }]&nbsp;&nbsp;</li> --%>
-								<li class="userName">[${login_info} 님]&nbsp;&nbsp;</li>
-								<li><Button onclick="go_logout()" class="click">로그인아웃</Button></li>
+								<li class="userName">[${login_info.name} 님]&nbsp;&nbsp;</li>
+								<li><Button onclick="go_logout()" class="click">로그아웃</Button></li>
 							</ul>
 						</c:if>
 
@@ -127,11 +127,11 @@
 						<c:if test="${ empty login_info }">
 							<table>
 								<tr>
-									<td><input class="needs" title="아이디" size="8" type="text"
-										id="login_id" placeholder="아이디" /></td>
+									<td><input class="needs" title="이메일" size="15" type="text"
+										id="login_id" placeholder="Email@naver.com" /></td>
 									<td><input class="needs" title="비밀번호"
 										onkeypress="if(event.keyCode==13) go_login()" size="8"
-										type="password" id="login_pwd" placeholder="비밀번호" /></td>
+										type="password" id="login_pwd" placeholder="password" /></td>
 									<td><Button onclick="go_login()" class="click">로그인</Button></td>
 									<td><Button onclick="location='sign_up'" class="click">회원가입</Button></td>
 								</tr>

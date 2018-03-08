@@ -31,7 +31,7 @@ public class WebMemberServiceImpl implements WebMemberService {
 	}
 
 	@Override
-	public String select(String email, String pwd) {
+	public WebMemberDTO select(String email, String pwd) {
 		return dao.select(email, pwd);
 	}
 

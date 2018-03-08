@@ -333,12 +333,12 @@
 			<div class="row">
 
 				<div class="col-md-8 col-md-offset-2 text-center">
-					<h2 class="white-text">Contact Us</h2>
+					<h2 class="white-text">Board Us</h2>
 					<p class="lead white-text">
 						궁금한 점은 관리자에게 문의해 주세요.<br />Please contact the administrator is
 						have any questions.
 					</p>
-					<a class="main-button icon-button" href="#">Contact Us Now</a>
+					<a class="main-button icon-button" href="board">Board Us Now</a>
 				</div>
 
 			</div>
